@@ -34,14 +34,22 @@ export default async function SiteHeader() {
             </Link>
           ))}
           {user ? (
-            <form action={logout}>
-              <button
-                type="submit"
+            <>
+              <Link
+                href="/write"
                 className="font-mono text-xs tracking-widest text-ink-dim uppercase transition-colors hover:text-accent"
               >
-                Logout
-              </button>
-            </form>
+                Write
+              </Link>
+              <form action={logout}>
+                <button
+                  type="submit"
+                  className="font-mono text-xs tracking-widest text-ink-dim uppercase transition-colors hover:text-accent"
+                >
+                  Logout
+                </button>
+              </form>
+            </>
           ) : (
             <Link
               href="/login"

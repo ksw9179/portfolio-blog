@@ -141,3 +141,22 @@ $$ language plpgsql security definer set search_path = public;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
+
+-- ============================================
+-- Storage 업로드 권한 (Phase 3, /write 페이지용)
+-- "public bucket" 설정은 읽기(select)만 열어주고, 업로드(insert)는
+-- 별도 정책이 필요함. 본인 uid 폴더(userId/파일명) 안에만 쓸 수 있게 제한.
+-- ============================================
+create policy "로그인 사용자는 본인 폴더에 이미지 업로드 가능"
+  on storage.objects for insert
+  with check (
+    bucket_id = 'post-images'
+    and auth.uid()::text = (storage.foldername(name))[1]
+  );
+
+create policy "본인이 올린 이미지만 삭제 가능"
+  on storage.objects for delete
+  using (
+    bucket_id = 'post-images'
+    and auth.uid()::text = (storage.foldername(name))[1]
+  );
