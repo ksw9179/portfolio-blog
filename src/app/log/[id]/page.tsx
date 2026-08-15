@@ -5,6 +5,11 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import { fetchPostById } from "@/lib/posts";
+import { fetchComments } from "@/lib/comments";
+import { fetchLikeInfo } from "@/lib/likes";
+import { createClient } from "@/lib/supabase/server";
+import LikeButton from "@/components/LikeButton";
+import CommentSection from "@/components/CommentSection";
 
 export default async function LogDetailPage({
   params,
@@ -17,6 +22,26 @@ export default async function LogDetailPage({
   if (!post) {
     notFound();
   }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .maybeSingle();
+    isAdmin = profile?.role === "admin";
+  }
+
+  const [comments, likeInfo] = await Promise.all([
+    fetchComments(id),
+    fetchLikeInfo(id),
+  ]);
 
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-8 px-6 py-20">
@@ -77,6 +102,23 @@ export default async function LogDetailPage({
           ))}
         </div>
       )}
+
+      <LikeButton
+        postId={post.id}
+        initialCount={likeInfo.count}
+        initialLiked={likeInfo.hasLiked}
+        isLoggedIn={!!user}
+      />
+
+      <div className="border-t border-surface-2 pt-8">
+        <CommentSection
+          postId={post.id}
+          postAuthorId={post.author_id}
+          initialComments={comments}
+          currentUserId={user?.id ?? null}
+          isAdmin={isAdmin}
+        />
+      </div>
     </div>
   );
 }
