@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, createScope, createTimeline, stagger } from "animejs";
+import NeuralBackground from "@/components/NeuralBackground";
 
 const HUD_LINES = ["[ SCANNING... ]", "IDENTITY CONFIRMED"];
 
@@ -98,6 +99,8 @@ export default function HeroScan() {
 
   return (
     <div ref={rootRef} className="relative w-full overflow-hidden">
+      <NeuralBackground />
+
       <div
         className="scanline pointer-events-none absolute inset-x-0 top-0 h-px"
         style={{
