@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { animate, createScope, stagger } from "animejs";
 import { fetchMorePosts } from "@/app/log/actions";
-import { POSTS_PAGE_SIZE, type Post } from "@/lib/posts";
+import { POSTS_PAGE_SIZE, type Post } from "@/lib/posts-types";
 import LogCard from "@/components/LogCard";
 
 export default function LogGrid({ initialPosts }: { initialPosts: Post[] }) {

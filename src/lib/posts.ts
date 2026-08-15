@@ -1,23 +1,16 @@
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
+import { POSTS_PAGE_SIZE, type Post } from "@/lib/posts-types";
 
-export type Post = {
-  id: string;
-  title: string | null;
-  body: string;
-  images: string[];
-  tags: string[];
-  created_at: string;
-};
-
-export const POSTS_PAGE_SIZE = 12;
+const POST_COLUMNS = "id, author_id, title, body, images, tags, created_at";
 
 export async function fetchPosts(page: number): Promise<Post[]> {
+  const supabase = await createClient();
   const from = page * POSTS_PAGE_SIZE;
   const to = from + POSTS_PAGE_SIZE - 1;
 
   const { data, error } = await supabase
     .from("posts")
-    .select("id, title, body, images, tags, created_at")
+    .select(POST_COLUMNS)
     .eq("published", true)
     .order("created_at", { ascending: false })
     .range(from, to);
@@ -30,9 +23,10 @@ export async function fetchPosts(page: number): Promise<Post[]> {
 }
 
 export async function fetchPostById(id: string): Promise<Post | null> {
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from("posts")
-    .select("id, title, body, images, tags, created_at")
+    .select(POST_COLUMNS)
     .eq("id", id)
     .eq("published", true)
     .single();

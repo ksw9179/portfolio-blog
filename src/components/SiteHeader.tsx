@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { logout } from "@/app/auth/actions";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -6,7 +8,12 @@ const NAV_LINKS = [
   { href: "/log", label: "Log" },
 ];
 
-export default function SiteHeader() {
+export default async function SiteHeader() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <header className="sticky top-0 z-40 border-b border-surface-2 bg-bg/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
@@ -26,6 +33,23 @@ export default function SiteHeader() {
               {link.label}
             </Link>
           ))}
+          {user ? (
+            <form action={logout}>
+              <button
+                type="submit"
+                className="font-mono text-xs tracking-widest text-ink-dim uppercase transition-colors hover:text-accent"
+              >
+                Logout
+              </button>
+            </form>
+          ) : (
+            <Link
+              href="/login"
+              className="font-mono text-xs tracking-widest text-ink-dim uppercase transition-colors hover:text-accent"
+            >
+              Login
+            </Link>
+          )}
         </nav>
       </div>
     </header>

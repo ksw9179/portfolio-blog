@@ -120,3 +120,24 @@ create policy "로그인 사용자는 본인 이름으로만 좋아요"
 create policy "본인 좋아요만 삭제"
   on likes for delete
   using (auth.uid() = user_id);
+
+-- ============================================
+-- 가입 시 profiles 자동 생성 (Phase 3)
+-- 회원가입 폼에서 넘긴 username(user_metadata)을 쓰고,
+-- 없으면 이메일 앞부분을 기본값으로 사용
+-- ============================================
+create function public.handle_new_user()
+returns trigger as $$
+begin
+  insert into public.profiles (id, username)
+  values (
+    new.id,
+    coalesce(new.raw_user_meta_data->>'username', split_part(new.email, '@', 1))
+  );
+  return new;
+end;
+$$ language plpgsql security definer set search_path = public;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
