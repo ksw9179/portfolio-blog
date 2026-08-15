@@ -3,6 +3,7 @@ import Link from "next/link";
 const NAV_LINKS = [
   { href: "/about", label: "About" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/log", label: "Log" },
 ];
 
 export default function SiteHeader() {

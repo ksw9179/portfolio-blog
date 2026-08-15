@@ -33,7 +33,7 @@ export const education: Education[] = [
   {
     school: "경희대학교",
     status: "재학 중",
-    period: "2023 – 현재",
+    period: "2023년부터",
   },
   { school: "범서고등학교", status: "졸업" },
   { school: "구영중학교", status: "졸업" },
