@@ -160,3 +160,32 @@ create policy "본인이 올린 이미지만 삭제 가능"
     bucket_id = 'post-images'
     and auth.uid()::text = (storage.foldername(name))[1]
   );
+
+-- ============================================
+-- reports 테이블 (신고 + 관리자 삭제, Phase 3)
+-- target_type/target_id로 posts 또는 comments를 느슨하게 참조
+-- (두 테이블에 다 걸리는 FK는 만들 수 없어서 앱 코드에서 분기 조회)
+-- ============================================
+create table reports (
+  id          uuid primary key default gen_random_uuid(),
+  reporter_id uuid not null references profiles(id) on delete cascade,
+  target_type text not null check (target_type in ('post', 'comment')),
+  target_id   uuid not null,
+  reason      text,
+  created_at  timestamptz not null default now(),
+  unique (reporter_id, target_type, target_id)
+);
+
+alter table reports enable row level security;
+
+create policy "로그인 사용자는 본인 이름으로 신고 가능"
+  on reports for insert
+  with check (auth.uid() = reporter_id);
+
+create policy "관리자만 신고 목록 조회"
+  on reports for select
+  using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+create policy "관리자만 신고 삭제(처리 완료 처리)"
+  on reports for delete
+  using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'admin'));

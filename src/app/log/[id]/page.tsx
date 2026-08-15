@@ -11,6 +11,7 @@ import { createClient } from "@/lib/supabase/server";
 import LikeButton from "@/components/LikeButton";
 import CommentSection from "@/components/CommentSection";
 import Avatar from "@/components/Avatar";
+import ReportButton from "@/components/ReportButton";
 
 export default async function LogDetailPage({
   params,
@@ -78,6 +79,16 @@ export default async function LogDetailPage({
             </>
           )}
           <span>{new Date(post.created_at).toLocaleDateString("ko-KR")}</span>
+          {user && user.id !== post.author_id && (
+            <>
+              <span>·</span>
+              <ReportButton
+                targetType="post"
+                targetId={post.id}
+                reporterId={user.id}
+              />
+            </>
+          )}
         </div>
       </div>
 

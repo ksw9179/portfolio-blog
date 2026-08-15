@@ -15,11 +15,15 @@ export default async function SiteHeader() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let profile: { username: string; avatar_url: string | null } | null = null;
+  let profile: {
+    username: string;
+    avatar_url: string | null;
+    role: string;
+  } | null = null;
   if (user) {
     const { data } = await supabase
       .from("profiles")
-      .select("username, avatar_url")
+      .select("username, avatar_url, role")
       .eq("id", user.id)
       .single();
     profile = data;
@@ -52,6 +56,14 @@ export default async function SiteHeader() {
               >
                 Write
               </Link>
+              {profile?.role === "admin" && (
+                <Link
+                  href="/admin/reports"
+                  className="font-mono text-xs tracking-widest text-ink-dim uppercase transition-colors hover:text-accent"
+                >
+                  Admin
+                </Link>
+              )}
               <form action={logout}>
                 <button
                   type="submit"

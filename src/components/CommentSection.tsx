@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import Avatar from "@/components/Avatar";
+import ReportButton from "@/components/ReportButton";
 
 type Comment = {
   id: string;
@@ -118,13 +119,21 @@ export default function CommentSection({
                     <span className="font-mono text-[11px] text-ink-dim">
                       {new Date(c.created_at).toLocaleDateString("ko-KR")}
                     </span>
-                    {canDelete && (
+                    {canDelete ? (
                       <button
                         onClick={() => handleDelete(c.id)}
                         className="font-mono text-[11px] text-ink-dim hover:text-red-400"
                       >
                         Delete
                       </button>
+                    ) : (
+                      currentUserId && (
+                        <ReportButton
+                          targetType="comment"
+                          targetId={c.id}
+                          reporterId={currentUserId}
+                        />
+                      )
                     )}
                   </div>
                 </div>
