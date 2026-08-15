@@ -15,11 +15,11 @@ export default function PortfolioPage() {
           Portfolio
         </p>
         <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
-          학력·프로젝트·자격증·활동
+          Education · Projects · Certifications · Activities
         </h1>
       </div>
 
-      <Section title="학력">
+      <Section title="Education">
         <ul className="flex flex-col gap-3">
           {education.map((e, i) => (
             <li
@@ -40,7 +40,7 @@ export default function PortfolioPage() {
         </ul>
       </Section>
 
-      <Section title="프로젝트">
+      <Section title="Projects">
         <div className="grid gap-4 sm:grid-cols-2">
           {projects.map((p) => (
             <Link
@@ -70,7 +70,7 @@ export default function PortfolioPage() {
         </div>
       </Section>
 
-      <Section title="자격증">
+      <Section title="Certifications">
         <ul className="flex flex-col gap-2">
           {certifications.map((c) => (
             <li key={c.name} className="flex items-center gap-2 text-ink">
@@ -81,7 +81,7 @@ export default function PortfolioPage() {
         </ul>
       </Section>
 
-      <Section title="대외활동">
+      <Section title="Activities">
         <ul className="flex flex-col gap-4">
           {activities.map((a) => (
             <li key={a.title} className="border-b border-surface-2 pb-4">

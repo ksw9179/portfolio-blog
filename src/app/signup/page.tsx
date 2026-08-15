@@ -39,10 +39,10 @@ export default function SignupPage() {
         <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
           Signup
         </p>
-        <h1 className="text-2xl font-black text-ink">이메일을 확인해주세요</h1>
+        <h1 className="text-2xl font-black text-ink">Check your email</h1>
         <p className="text-ink-dim">
-          {email}로 인증 메일을 보냈습니다. 메일의 링크를 클릭하면 가입이
-          완료됩니다.
+          We sent a confirmation link to {email}. Click it to finish signing
+          up.
         </p>
       </div>
     );
@@ -54,20 +54,25 @@ export default function SignupPage() {
         <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
           Signup
         </p>
-        <h1 className="text-3xl font-black text-ink">회원가입</h1>
+        <h1 className="text-3xl font-black text-ink">Sign Up</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <AuthField label="아이디" value={username} onChange={setUsername} required />
         <AuthField
-          label="이메일"
+          label="Username"
+          value={username}
+          onChange={setUsername}
+          required
+        />
+        <AuthField
+          label="Email"
           type="email"
           value={email}
           onChange={setEmail}
           required
         />
         <AuthField
-          label="비밀번호"
+          label="Password"
           type="password"
           value={password}
           onChange={setPassword}
@@ -82,14 +87,14 @@ export default function SignupPage() {
           disabled={loading}
           className="mt-2 rounded-full bg-accent px-5 py-3 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
         >
-          {loading ? "가입 중..." : "가입하기"}
+          {loading ? "Signing up..." : "Sign Up"}
         </button>
       </form>
 
       <p className="text-center text-sm text-ink-dim">
-        이미 계정이 있으신가요?{" "}
+        Already have an account?{" "}
         <Link href="/login" className="text-accent hover:underline">
-          로그인
+          Login
         </Link>
       </p>
     </div>

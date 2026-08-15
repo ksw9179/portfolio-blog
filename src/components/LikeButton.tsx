@@ -61,7 +61,7 @@ export default function LikeButton({
     <button
       onClick={toggle}
       disabled={!isLoggedIn}
-      title={isLoggedIn ? undefined : "로그인이 필요합니다"}
+      title={isLoggedIn ? undefined : "Login required"}
       className={`flex w-fit items-center gap-2 rounded-full border px-4 py-2 font-mono text-sm transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${
         liked
           ? "border-accent bg-accent/10 text-accent"

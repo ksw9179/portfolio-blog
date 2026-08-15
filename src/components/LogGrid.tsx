@@ -73,7 +73,7 @@ export default function LogGrid({ initialPosts }: { initialPosts: Post[] }) {
       {hasMore && (
         <div ref={sentinelRef} className="flex justify-center">
           {loading && (
-            <p className="font-mono text-xs text-ink-dim">불러오는 중...</p>
+            <p className="font-mono text-xs text-ink-dim">Loading...</p>
           )}
         </div>
       )}

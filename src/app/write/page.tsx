@@ -18,7 +18,7 @@ export default async function WritePage() {
         <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
           Write
         </p>
-        <h1 className="text-3xl font-black text-ink">새 글 작성</h1>
+        <h1 className="text-3xl font-black text-ink">New Post</h1>
       </div>
       <WriteForm userId={user.id} />
     </div>

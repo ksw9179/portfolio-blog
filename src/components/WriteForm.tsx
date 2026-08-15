@@ -57,7 +57,7 @@ export default function WriteForm({ userId }: { userId: string }) {
       router.push(`/log/${post.id}`);
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "글 작성에 실패했습니다.");
+      setError(err instanceof Error ? err.message : "Failed to publish post.");
       setLoading(false);
     }
   }
@@ -66,7 +66,7 @@ export default function WriteForm({ userId }: { userId: string }) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <label className="flex flex-col gap-1.5">
         <span className="font-mono text-xs tracking-widest text-ink-dim uppercase">
-          제목 (선택)
+          Title (optional)
         </span>
         <input
           value={title}
@@ -77,7 +77,7 @@ export default function WriteForm({ userId }: { userId: string }) {
 
       <label className="flex flex-col gap-1.5">
         <span className="font-mono text-xs tracking-widest text-ink-dim uppercase">
-          본문 (마크다운 지원)
+          Body (Markdown supported)
         </span>
         <textarea
           value={body}
@@ -90,7 +90,7 @@ export default function WriteForm({ userId }: { userId: string }) {
 
       <label className="flex flex-col gap-1.5">
         <span className="font-mono text-xs tracking-widest text-ink-dim uppercase">
-          태그 (쉼표로 구분, 선택)
+          Tags (comma-separated, optional)
         </span>
         <input
           value={tagsInput}
@@ -102,7 +102,7 @@ export default function WriteForm({ userId }: { userId: string }) {
 
       <label className="flex flex-col gap-1.5">
         <span className="font-mono text-xs tracking-widest text-ink-dim uppercase">
-          이미지 (선택)
+          Images (optional)
         </span>
         <input
           type="file"
@@ -120,7 +120,7 @@ export default function WriteForm({ userId }: { userId: string }) {
         disabled={loading}
         className="mt-2 rounded-full bg-accent px-5 py-3 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {loading ? "게시 중..." : "게시하기"}
+        {loading ? "Publishing..." : "Publish"}
       </button>
     </form>
   );

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogCard from "@/components/LogCard";
@@ -21,6 +22,11 @@ export default async function UserProfilePage({
   if (!profile) {
     notFound();
   }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const isOwnProfile = user?.id === profile.id;
 
   const { data: posts } = await supabase
     .from("posts")
@@ -48,17 +54,23 @@ export default async function UserProfilePage({
           </h1>
           <p className="font-mono text-sm text-ink-dim">@{profile.username}</p>
           {profile.bio && <p className="mt-2 text-ink-dim">{profile.bio}</p>}
+          {isOwnProfile && (
+            <Link
+              href="/profile/edit"
+              className="mt-2 w-fit rounded-full border border-surface-2 px-3 py-1 font-mono text-xs text-ink-dim transition-colors hover:border-accent-dim hover:text-accent"
+            >
+              Edit Profile
+            </Link>
+          )}
         </div>
       </div>
 
       <div className="flex flex-col gap-4">
         <h2 className="border-t-2 border-ink pt-3 text-xl font-bold text-ink">
-          게시글 {postList.length}
+          Posts {postList.length}
         </h2>
         {postList.length === 0 ? (
-          <p className="font-mono text-xs text-ink-dim">
-            아직 작성한 글이 없습니다.
-          </p>
+          <p className="font-mono text-xs text-ink-dim">No posts yet.</p>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {postList.map((post) => (

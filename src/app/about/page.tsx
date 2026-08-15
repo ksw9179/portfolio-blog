@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const INTERESTS = ["AI / ML", "Bioinformatics", "생명공학", "데이터 분석"];
+const INTERESTS = ["AI / ML", "Bioinformatics", "Biotechnology", "Data Analysis"];
 
 const ABOUT_POINTS = [
   "경희대학교에서 AI와 생명공학을 함께 공부",
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
           <div className="flex flex-col gap-2">
             <p className="font-mono text-xs tracking-[0.3em] text-ink-dim uppercase">
-              관심 분야
+              Interests
             </p>
             <ul className="flex flex-wrap gap-2">
               {INTERESTS.map((tag) => (

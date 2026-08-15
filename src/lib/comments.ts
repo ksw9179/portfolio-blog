@@ -25,7 +25,7 @@ function toAuthor(profiles: CommentRow["profiles"]): {
 } {
   const profile = Array.isArray(profiles) ? profiles[0] : profiles;
   return {
-    username: profile?.username ?? "알 수 없음",
+    username: profile?.username ?? "Unknown",
     avatar_url: profile?.avatar_url ?? null,
   };
 }

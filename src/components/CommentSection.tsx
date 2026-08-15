@@ -47,7 +47,7 @@ export default function CommentSection({
 
     setLoading(false);
     if (error || !data) {
-      setError(error?.message ?? "댓글 작성에 실패했습니다.");
+      setError(error?.message ?? "Failed to post comment.");
       return;
     }
 
@@ -64,7 +64,7 @@ export default function CommentSection({
         author_id: data.author_id,
         body: data.body,
         created_at: data.created_at,
-        author_username: profile?.username ?? "나",
+        author_username: profile?.username ?? "You",
         author_avatar_url: profile?.avatar_url ?? null,
       },
     ]);
@@ -85,7 +85,7 @@ export default function CommentSection({
   return (
     <div className="flex flex-col gap-6">
       <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
-        Comments(댓글) {comments.length}
+        Comments {comments.length}
       </p>
 
       {comments.length > 0 && (
@@ -123,7 +123,7 @@ export default function CommentSection({
                         onClick={() => handleDelete(c.id)}
                         className="font-mono text-[11px] text-ink-dim hover:text-red-400"
                       >
-                        삭제
+                        Delete
                       </button>
                     )}
                   </div>
@@ -142,7 +142,7 @@ export default function CommentSection({
             onChange={(e) => setBody(e.target.value)}
             required
             rows={3}
-            placeholder="댓글을 남겨보세요"
+            placeholder="Leave a comment"
             className="rounded-lg border border-surface-2 bg-surface px-4 py-2.5 text-ink outline-none focus:border-accent-dim"
           />
           {error && <p className="font-mono text-xs text-red-400">{error}</p>}
@@ -151,16 +151,15 @@ export default function CommentSection({
             disabled={loading}
             className="w-fit rounded-full bg-accent px-4 py-2 font-mono text-xs font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {loading ? "작성 중..." : "댓글 작성"}
+            {loading ? "Posting..." : "Post Comment"}
           </button>
         </form>
       ) : (
         <p className="font-mono text-xs text-ink-dim">
-          댓글을 작성하려면{" "}
           <Link href="/login" className="text-accent hover:underline">
-            로그인
-          </Link>
-          이 필요합니다.
+            Login
+          </Link>{" "}
+          to leave a comment.
         </p>
       )}
     </div>

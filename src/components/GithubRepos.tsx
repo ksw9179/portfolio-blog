@@ -37,7 +37,7 @@ export default async function GithubRepos() {
   if (repos.length === 0) {
     return (
       <p className="font-mono text-xs text-ink-dim">
-        저장소 카드 준비 중 — GITHUB_TOKEN 설정 후 표시됩니다.
+        Repo cards pending — will appear once GITHUB_TOKEN is configured.
       </p>
     );
   }

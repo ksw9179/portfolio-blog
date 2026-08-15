@@ -13,7 +13,7 @@ export default function Home() {
             GitHub Activity
           </p>
           <h2 className="text-2xl font-black tracking-tight text-ink sm:text-3xl">
-            최근 활동
+            Recent Activity
           </h2>
         </div>
 

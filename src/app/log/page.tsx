@@ -11,12 +11,12 @@ export default async function LogPage() {
           Log
         </p>
         <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
-          코딩 로그
+          Coding Log
         </h1>
       </div>
 
       {posts.length === 0 ? (
-        <p className="font-mono text-xs text-ink-dim">아직 글이 없습니다.</p>
+        <p className="font-mono text-xs text-ink-dim">No posts yet.</p>
       ) : (
         <LogGrid initialPosts={posts} />
       )}

@@ -39,19 +39,19 @@ export default function LoginPage() {
         <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
           Login
         </p>
-        <h1 className="text-3xl font-black text-ink">로그인</h1>
+        <h1 className="text-3xl font-black text-ink">Login</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <AuthField
-          label="이메일"
+          label="Email"
           type="email"
           value={email}
           onChange={setEmail}
           required
         />
         <AuthField
-          label="비밀번호"
+          label="Password"
           type="password"
           value={password}
           onChange={setPassword}
@@ -65,14 +65,14 @@ export default function LoginPage() {
           disabled={loading}
           className="mt-2 rounded-full bg-accent px-5 py-3 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
         >
-          {loading ? "로그인 중..." : "로그인"}
+          {loading ? "Logging in..." : "Login"}
         </button>
       </form>
 
       <p className="text-center text-sm text-ink-dim">
-        계정이 없으신가요?{" "}
+        Don&apos;t have an account?{" "}
         <Link href="/signup" className="text-accent hover:underline">
-          회원가입
+          Sign up
         </Link>
       </p>
     </div>

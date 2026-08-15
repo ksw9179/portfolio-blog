@@ -47,9 +47,9 @@ export default async function ProjectDetailPage({
       </div>
 
       <div className="flex flex-col gap-8">
-        <Detail label="문제" text={project.problem} />
-        <Detail label="접근" text={project.approach} />
-        <Detail label="결과" text={project.result} />
+        <Detail label="Problem" text={project.problem} />
+        <Detail label="Approach" text={project.approach} />
+        <Detail label="Result" text={project.result} />
       </div>
 
       {project.githubUrl && (
@@ -59,7 +59,7 @@ export default async function ProjectDetailPage({
           rel="noopener noreferrer"
           className="inline-flex w-fit items-center gap-2 rounded-full bg-accent px-5 py-2.5 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90"
         >
-          GitHub에서 코드 보기 →
+          View on GitHub →
         </a>
       )}
     </div>

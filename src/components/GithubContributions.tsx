@@ -55,7 +55,7 @@ export default async function GithubContributions() {
   if (!data) {
     return (
       <p className="font-mono text-xs text-ink-dim">
-        잔디 그래프 준비 중 — GITHUB_TOKEN 설정 후 표시됩니다.
+        Contribution graph pending — will appear once GITHUB_TOKEN is configured.
       </p>
     );
   }

@@ -59,7 +59,7 @@ export default function ContributionGrid({
   return (
     <div ref={rootRef} className="flex flex-col gap-3">
       <p className="font-mono text-xs text-ink-dim">
-        최근 1년 {total.toLocaleString()}회 기여
+        {total.toLocaleString()} contributions in the last year
       </p>
       <div className="flex gap-[3px] overflow-x-auto pb-2">
         {weeks.map((week, wi) => (

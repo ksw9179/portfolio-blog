@@ -26,18 +26,18 @@ export type Project = {
   result: string;
   stack: string[];
   githubUrl?: string;
-  status: "완료" | "진행 중";
+  status: "Completed" | "In Progress";
 };
 
 export const education: Education[] = [
   {
     school: "경희대학교",
-    status: "재학 중",
+    status: "Enrolled",
     period: "2023년부터",
   },
-  { school: "범서고등학교", status: "졸업" },
-  { school: "구영중학교", status: "졸업" },
-  { school: "구영초등학교", status: "졸업" },
+  { school: "범서고등학교", status: "Graduated" },
+  { school: "구영중학교", status: "Graduated" },
+  { school: "구영초등학교", status: "Graduated" },
 ];
 
 export const certifications: Certification[] = [
@@ -51,7 +51,7 @@ export const activities: Activity[] = [
     title: "정부출연(연) 슈퍼컴퓨터와 함께하는 AI·빅데이터 바이오 캠프",
     org: "한국과학기술정보연구원(KISTI)",
     period: "2026.07.20 – 2026.07.23",
-    description: "수료",
+    description: "Completed",
   },
 ];
 
@@ -69,7 +69,7 @@ export const projects: Project[] = [
       "자체 테스트 24/24 통과. XOR 100%, 유방암 진단(breast cancer) 95.6%, sklearn digits 97.5%, 실제 MNIST 95.75% 달성.",
     stack: ["Python", "NumPy"],
     githubUrl: "https://github.com/ksw9179/numpy-backprop",
-    status: "완료",
+    status: "Completed",
   },
   {
     slug: "autograd-engine",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
       "27개 테스트 전부 통과. moons 데이터셋 99%, MNIST 95.75% (numpy-backprop과 동일 수치로 검증).",
     stack: ["Python", "NumPy"],
     githubUrl: "https://github.com/ksw9179/autograd-engine",
-    status: "완료",
+    status: "Completed",
   },
   {
     slug: "blueberry-ripeness-classification",
@@ -98,6 +98,6 @@ export const projects: Project[] = [
     result:
       "의외로 EfficientNet이 CNN보다 외부(실제) 사진 정확도가 낮게 나오는 현상을 발견. 원인을 추적한 결과, 원본 이미지 해상도가 매우 작아(평균 51px) EfficientNet의 큰 업스케일(224px, 약 4.4배)이 보간 흐림 패턴을 학습에 반영시킨 것이 유력한 원인으로 확인됨. 업스케일 배율을 줄인 재실험 진행 예정.",
     stack: ["Python", "PyTorch", "Keras/TensorFlow", "Google Colab"],
-    status: "진행 중",
+    status: "In Progress",
   },
 ];
