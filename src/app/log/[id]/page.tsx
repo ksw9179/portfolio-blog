@@ -12,6 +12,7 @@ import LikeButton from "@/components/LikeButton";
 import CommentSection from "@/components/CommentSection";
 import Avatar from "@/components/Avatar";
 import ReportButton from "@/components/ReportButton";
+import DeletePostButton from "@/components/DeletePostButton";
 
 export default async function LogDetailPage({
   params,
@@ -79,7 +80,13 @@ export default async function LogDetailPage({
             </>
           )}
           <span>{new Date(post.created_at).toLocaleDateString("ko-KR")}</span>
-          {user && user.id !== post.author_id && (
+          {user && (user.id === post.author_id || isAdmin) && (
+            <>
+              <span>·</span>
+              <DeletePostButton postId={post.id} />
+            </>
+          )}
+          {user && user.id !== post.author_id && !isAdmin && (
             <>
               <span>·</span>
               <ReportButton
