@@ -18,7 +18,7 @@ export default function AboutPage() {
           About
         </p>
         <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
-          김선우
+          김선우(Seonwoo Kim)
         </h1>
       </div>
 
@@ -26,7 +26,7 @@ export default function AboutPage() {
         <div className="overflow-hidden rounded-2xl border border-surface-2">
           <Image
             src="/images/profile.jpg"
-            alt="김선우"
+            alt="김선우(Seonwoo Kim)"
             width={1000}
             height={1250}
             className="h-full w-full object-cover"

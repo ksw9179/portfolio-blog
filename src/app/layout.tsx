@@ -10,8 +10,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SW makes Vision — 김선우",
-  description: "AI와 생명공학을 이어 세상에 가치를 만들어 나가는 김선우의 포트폴리오.",
+  title: "SW makes Vision — 김선우(Seonwoo Kim)",
+  description:
+    "AI와 생명공학을 이어 세상에 가치를 만들어 나가는 김선우(Seonwoo Kim)의 포트폴리오.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
