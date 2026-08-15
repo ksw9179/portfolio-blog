@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogCard from "@/components/LogCard";
+import Avatar from "@/components/Avatar";
 import type { Post } from "@/lib/posts-types";
 
 export default async function UserProfilePage({
@@ -13,7 +14,7 @@ export default async function UserProfilePage({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, username, display_name, bio")
+    .select("id, username, display_name, bio, avatar_url")
     .eq("username", username)
     .maybeSingle();
 
@@ -32,15 +33,22 @@ export default async function UserProfilePage({
 
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-10 px-6 py-20">
-      <div className="flex flex-col gap-2">
-        <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
-          Profile
-        </p>
-        <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
-          {profile.display_name || profile.username}
-        </h1>
-        <p className="font-mono text-sm text-ink-dim">@{profile.username}</p>
-        {profile.bio && <p className="mt-2 text-ink-dim">{profile.bio}</p>}
+      <div className="flex items-center gap-5">
+        <Avatar
+          username={profile.username}
+          avatarUrl={profile.avatar_url}
+          size={72}
+        />
+        <div className="flex flex-col gap-2">
+          <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
+            Profile
+          </p>
+          <h1 className="text-4xl font-black tracking-tight text-ink sm:text-5xl">
+            {profile.display_name || profile.username}
+          </h1>
+          <p className="font-mono text-sm text-ink-dim">@{profile.username}</p>
+          {profile.bio && <p className="mt-2 text-ink-dim">{profile.bio}</p>}
+        </div>
       </div>
 
       <div className="flex flex-col gap-4">

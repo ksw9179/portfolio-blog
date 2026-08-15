@@ -21,7 +21,7 @@ export default async function SiteHeader() {
           href="/"
           className="font-mono text-sm font-bold tracking-widest text-ink uppercase"
         >
-          SW<span className="text-accent">.</span>
+          KSW&apos;s BLOG
         </Link>
         <nav className="flex items-center gap-6">
           {NAV_LINKS.map((link) => (

@@ -35,14 +35,14 @@ export async function fetchPostById(id: string): Promise<Post | null> {
   return data;
 }
 
-export async function fetchAuthorUsername(
-  authorId: string
-): Promise<string | null> {
+export type Author = { username: string; avatar_url: string | null };
+
+export async function fetchAuthor(authorId: string): Promise<Author | null> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("profiles")
-    .select("username")
+    .select("username, avatar_url")
     .eq("id", authorId)
     .maybeSingle();
-  return data?.username ?? null;
+  return data ?? null;
 }

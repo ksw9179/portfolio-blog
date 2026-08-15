@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import Avatar from "@/components/Avatar";
 
 type Comment = {
   id: string;
@@ -10,6 +11,7 @@ type Comment = {
   body: string;
   created_at: string;
   author_username: string;
+  author_avatar_url: string | null;
 };
 
 export default function CommentSection({
@@ -40,7 +42,7 @@ export default function CommentSection({
     const { data, error } = await supabase
       .from("comments")
       .insert({ post_id: postId, author_id: currentUserId, body })
-      .select("id, author_id, body, created_at, profiles(username)")
+      .select("id, author_id, body, created_at, profiles(username, avatar_url)")
       .single();
 
     setLoading(false);
@@ -50,12 +52,10 @@ export default function CommentSection({
     }
 
     const profiles = data.profiles as unknown as
-      | { username: string }
-      | { username: string }[]
+      | { username: string; avatar_url: string | null }
+      | { username: string; avatar_url: string | null }[]
       | null;
-    const username = Array.isArray(profiles)
-      ? (profiles[0]?.username ?? "나")
-      : (profiles?.username ?? "나");
+    const profile = Array.isArray(profiles) ? profiles[0] : profiles;
 
     setComments((prev) => [
       ...prev,
@@ -64,7 +64,8 @@ export default function CommentSection({
         author_id: data.author_id,
         body: data.body,
         created_at: data.created_at,
-        author_username: username,
+        author_username: profile?.username ?? "나",
+        author_avatar_url: profile?.avatar_url ?? null,
       },
     ]);
     setBody("");
@@ -100,12 +101,19 @@ export default function CommentSection({
                 className="flex flex-col gap-1 border-b border-surface-2 pb-4"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <Link
-                    href={`/u/${c.author_username}`}
-                    className="font-mono text-xs text-ink-dim hover:text-accent"
-                  >
-                    {c.author_username}
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Avatar
+                      username={c.author_username}
+                      avatarUrl={c.author_avatar_url}
+                      size={20}
+                    />
+                    <Link
+                      href={`/u/${c.author_username}`}
+                      className="font-mono text-xs text-ink-dim hover:text-accent"
+                    >
+                      {c.author_username}
+                    </Link>
+                  </div>
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-[11px] text-ink-dim">
                       {new Date(c.created_at).toLocaleDateString("ko-KR")}

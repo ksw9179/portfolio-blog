@@ -4,12 +4,13 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import { fetchPostById, fetchAuthorUsername } from "@/lib/posts";
+import { fetchPostById, fetchAuthor } from "@/lib/posts";
 import { fetchComments } from "@/lib/comments";
 import { fetchLikeInfo } from "@/lib/likes";
 import { createClient } from "@/lib/supabase/server";
 import LikeButton from "@/components/LikeButton";
 import CommentSection from "@/components/CommentSection";
+import Avatar from "@/components/Avatar";
 
 export default async function LogDetailPage({
   params,
@@ -38,10 +39,10 @@ export default async function LogDetailPage({
     isAdmin = profile?.role === "admin";
   }
 
-  const [comments, likeInfo, authorUsername] = await Promise.all([
+  const [comments, likeInfo, author] = await Promise.all([
     fetchComments(id),
     fetchLikeInfo(id),
-    fetchAuthorUsername(post.author_id),
+    fetchAuthor(post.author_id),
   ]);
 
   return (
@@ -60,13 +61,18 @@ export default async function LogDetailPage({
           </h1>
         )}
         <div className="flex items-center gap-2 font-mono text-xs text-ink-dim">
-          {authorUsername && (
+          {author && (
             <>
+              <Avatar
+                username={author.username}
+                avatarUrl={author.avatar_url}
+                size={20}
+              />
               <Link
-                href={`/u/${authorUsername}`}
+                href={`/u/${author.username}`}
                 className="text-accent hover:underline"
               >
-                @{authorUsername}
+                @{author.username}
               </Link>
               <span>·</span>
             </>
