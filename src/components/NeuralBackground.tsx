@@ -54,11 +54,15 @@ export default function NeuralBackground() {
       nodes = [];
       const xPad = width * 0.08;
       const yPad = height * 0.12;
+      const layerGap = (width - xPad * 2) / (LAYER_COUNT - 1);
+      const nodeGap = (height - yPad * 2) / (NODES_PER_LAYER - 1);
       for (let l = 0; l < LAYER_COUNT; l++) {
-        const x = xPad + (l / (LAYER_COUNT - 1)) * (width - xPad * 2);
+        const layerX = xPad + l * layerGap;
         for (let n = 0; n < NODES_PER_LAYER; n++) {
-          const baseY =
-            yPad + (n / (NODES_PER_LAYER - 1)) * (height - yPad * 2);
+          const gridY = yPad + n * nodeGap;
+          // 완벽한 격자가 아니라 자연스럽게 흐트러지도록 무작위 흔들림 추가
+          const x = layerX + (Math.random() - 0.5) * layerGap * 0.35;
+          const baseY = gridY + (Math.random() - 0.5) * nodeGap * 0.7;
           nodes.push({
             layer: l,
             x,
