@@ -100,9 +100,12 @@ export default function CommentSection({
                 className="flex flex-col gap-1 border-b border-surface-2 pb-4"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-xs text-ink-dim">
+                  <Link
+                    href={`/u/${c.author_username}`}
+                    className="font-mono text-xs text-ink-dim hover:text-accent"
+                  >
                     {c.author_username}
-                  </span>
+                  </Link>
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-[11px] text-ink-dim">
                       {new Date(c.created_at).toLocaleDateString("ko-KR")}

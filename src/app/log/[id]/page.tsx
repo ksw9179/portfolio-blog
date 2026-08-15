@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import { fetchPostById } from "@/lib/posts";
+import { fetchPostById, fetchAuthorUsername } from "@/lib/posts";
 import { fetchComments } from "@/lib/comments";
 import { fetchLikeInfo } from "@/lib/likes";
 import { createClient } from "@/lib/supabase/server";
@@ -38,9 +38,10 @@ export default async function LogDetailPage({
     isAdmin = profile?.role === "admin";
   }
 
-  const [comments, likeInfo] = await Promise.all([
+  const [comments, likeInfo, authorUsername] = await Promise.all([
     fetchComments(id),
     fetchLikeInfo(id),
+    fetchAuthorUsername(post.author_id),
   ]);
 
   return (
@@ -58,9 +59,20 @@ export default async function LogDetailPage({
             {post.title}
           </h1>
         )}
-        <p className="font-mono text-xs text-ink-dim">
-          {new Date(post.created_at).toLocaleDateString("ko-KR")}
-        </p>
+        <div className="flex items-center gap-2 font-mono text-xs text-ink-dim">
+          {authorUsername && (
+            <>
+              <Link
+                href={`/u/${authorUsername}`}
+                className="text-accent hover:underline"
+              >
+                @{authorUsername}
+              </Link>
+              <span>·</span>
+            </>
+          )}
+          <span>{new Date(post.created_at).toLocaleDateString("ko-KR")}</span>
+        </div>
       </div>
 
       {post.images.length > 0 && (

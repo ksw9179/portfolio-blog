@@ -34,3 +34,15 @@ export async function fetchPostById(id: string): Promise<Post | null> {
   if (error || !data) return null;
   return data;
 }
+
+export async function fetchAuthorUsername(
+  authorId: string
+): Promise<string | null> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("profiles")
+    .select("username")
+    .eq("id", authorId)
+    .maybeSingle();
+  return data?.username ?? null;
+}
