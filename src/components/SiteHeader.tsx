@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { logout } from "@/app/auth/actions";
+import Avatar from "@/components/Avatar";
 
 const NAV_LINKS = [
   { href: "/about", label: "About" },
@@ -13,6 +14,16 @@ export default async function SiteHeader() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  let profile: { username: string; avatar_url: string | null } | null = null;
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("username, avatar_url")
+      .eq("id", user.id)
+      .single();
+    profile = data;
+  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-surface-2 bg-bg/80 backdrop-blur">
@@ -49,6 +60,13 @@ export default async function SiteHeader() {
                   Logout
                 </button>
               </form>
+              {profile && (
+                <Avatar
+                  username={profile.username}
+                  avatarUrl={profile.avatar_url}
+                  size={28}
+                />
+              )}
             </>
           ) : (
             <Link
