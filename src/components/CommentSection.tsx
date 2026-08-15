@@ -84,7 +84,7 @@ export default function CommentSection({
   return (
     <div className="flex flex-col gap-6">
       <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
-        댓글 {comments.length}
+        Comments(댓글) {comments.length}
       </p>
 
       {comments.length > 0 && (
@@ -100,7 +100,7 @@ export default function CommentSection({
                 className="flex flex-col gap-1 border-b border-surface-2 pb-4"
               >
                 <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-xs text-ink">
+                  <span className="font-mono text-xs text-ink-dim">
                     {c.author_username}
                   </span>
                   <div className="flex items-center gap-3">
@@ -117,7 +117,7 @@ export default function CommentSection({
                     )}
                   </div>
                 </div>
-                <p className="text-sm text-ink-dim">{c.body}</p>
+                <p className="text-sm text-ink">{c.body}</p>
               </li>
             );
           })}
