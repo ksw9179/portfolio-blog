@@ -19,7 +19,7 @@ export default function DeletePostButton({ postId }: { postId: string }) {
     <button
       type="button"
       onClick={handleDelete}
-      className="font-mono text-[11px] text-ink-dim hover:text-red-400"
+      className="rounded-full border border-red-400/40 px-2.5 py-1 font-mono text-[11px] text-red-400 transition-colors hover:bg-red-400/10"
     >
       Delete
     </button>
