@@ -2,11 +2,18 @@
 
 import { useEffect, useRef } from "react";
 
-type Node = { x: number; y: number; vx: number; vy: number };
+type Node = {
+  layer: number;
+  x: number;
+  baseY: number;
+  y: number;
+  vy: number;
+};
 
-const NODE_COUNT = 50;
-const CONNECT_DISTANCE = 140;
-const SPEED = 0.15;
+const LAYER_COUNT = 5;
+const NODES_PER_LAYER = 6;
+const DRIFT_SPEED = 0.08;
+const DRIFT_RANGE = 12;
 
 export default function NeuralBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -44,12 +51,23 @@ export default function NeuralBackground() {
     }
 
     function initNodes() {
-      nodes = Array.from({ length: NODE_COUNT }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * SPEED,
-        vy: (Math.random() - 0.5) * SPEED,
-      }));
+      nodes = [];
+      const xPad = width * 0.08;
+      const yPad = height * 0.12;
+      for (let l = 0; l < LAYER_COUNT; l++) {
+        const x = xPad + (l / (LAYER_COUNT - 1)) * (width - xPad * 2);
+        for (let n = 0; n < NODES_PER_LAYER; n++) {
+          const baseY =
+            yPad + (n / (NODES_PER_LAYER - 1)) * (height - yPad * 2);
+          nodes.push({
+            layer: l,
+            x,
+            baseY,
+            y: baseY,
+            vy: (Math.random() < 0.5 ? -1 : 1) * DRIFT_SPEED,
+          });
+        }
+      }
     }
 
     function draw() {
@@ -57,34 +75,31 @@ export default function NeuralBackground() {
 
       if (!reduceMotion) {
         for (const n of nodes) {
-          n.x += n.vx;
           n.y += n.vy;
-          if (n.x < 0 || n.x > width) n.vx *= -1;
-          if (n.y < 0 || n.y > height) n.vy *= -1;
+          if (Math.abs(n.y - n.baseY) > DRIFT_RANGE) n.vy *= -1;
         }
       }
 
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const dx = nodes[i].x - nodes[j].x;
-          const dy = nodes[i].y - nodes[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECT_DISTANCE) {
-            const opacity = (1 - dist / CONNECT_DISTANCE) * 0.18;
-            ctx!.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-            ctx!.lineWidth = 1;
+      // 인접한 층끼리만 연결 (실제 신경망 다이어그램 구조)
+      ctx!.lineWidth = 1;
+      for (let l = 0; l < LAYER_COUNT - 1; l++) {
+        const from = nodes.filter((n) => n.layer === l);
+        const to = nodes.filter((n) => n.layer === l + 1);
+        for (const a of from) {
+          for (const bNode of to) {
+            ctx!.strokeStyle = `rgba(${r}, ${g}, ${b}, 0.07)`;
             ctx!.beginPath();
-            ctx!.moveTo(nodes[i].x, nodes[i].y);
-            ctx!.lineTo(nodes[j].x, nodes[j].y);
+            ctx!.moveTo(a.x, a.y);
+            ctx!.lineTo(bNode.x, bNode.y);
             ctx!.stroke();
           }
         }
       }
 
       for (const n of nodes) {
-        ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, 0.45)`;
+        ctx!.fillStyle = `rgba(${r}, ${g}, ${b}, 0.5)`;
         ctx!.beginPath();
-        ctx!.arc(n.x, n.y, 1.5, 0, Math.PI * 2);
+        ctx!.arc(n.x, n.y, 2, 0, Math.PI * 2);
         ctx!.fill();
       }
 
