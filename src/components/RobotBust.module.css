@@ -367,6 +367,7 @@
 
 .hand {
   position: absolute;
+  z-index: -1;
   left: 50%;
   bottom: -14px;
   width: 42px;
