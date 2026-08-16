@@ -365,24 +365,6 @@
   border-radius: 50%;
 }
 
-.hand {
-  position: absolute;
-  z-index: -1;
-  left: 50%;
-  bottom: -14px;
-  width: 42px;
-  height: 42px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 35% 28%, rgb(var(--c-white) / 0.65), transparent 42%),
-    linear-gradient(145deg, rgb(var(--c-bright)), rgb(var(--c-dim)) 75%);
-  box-shadow:
-    inset 6px -5px 10px rgb(var(--c-dark) / 0.55),
-    inset -4px 4px 8px rgb(var(--c-glow) / 0.35),
-    0 0 14px rgb(var(--c-bright) / 0.3);
-}
-
 .armLeft {
   left: 27px;
   transform: rotate(8deg);

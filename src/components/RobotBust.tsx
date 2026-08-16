@@ -35,11 +35,9 @@ export default function RobotBust() {
         <div className={`${styles.shoulder} ${styles.shoulderRight}`} />
         <div className={`${styles.arm} ${styles.armLeft} wave-arm`}>
           <i />
-          <span className={styles.hand} />
         </div>
         <div className={`${styles.arm} ${styles.armRight}`}>
           <i />
-          <span className={styles.hand} />
         </div>
         <div className={styles.torso}>
           <div className={styles.chestPanel}>
