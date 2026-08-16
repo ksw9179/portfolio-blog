@@ -35,25 +35,11 @@ export default function RobotBust() {
         <div className={`${styles.shoulder} ${styles.shoulderRight}`} />
         <div className={`${styles.arm} ${styles.armLeft} wave-arm`}>
           <i />
-          <span className={styles.hand}>
-            <span className={styles.palm} />
-            <i className={`${styles.finger} ${styles.fingerA}`} />
-            <i className={`${styles.finger} ${styles.fingerB}`} />
-            <i className={`${styles.finger} ${styles.fingerC}`} />
-            <i className={`${styles.finger} ${styles.fingerD}`} />
-            <i className={`${styles.finger} ${styles.fingerE}`} />
-          </span>
+          <span className={styles.hand} />
         </div>
         <div className={`${styles.arm} ${styles.armRight}`}>
           <i />
-          <span className={styles.hand}>
-            <span className={styles.palm} />
-            <i className={`${styles.finger} ${styles.fingerA}`} />
-            <i className={`${styles.finger} ${styles.fingerB}`} />
-            <i className={`${styles.finger} ${styles.fingerC}`} />
-            <i className={`${styles.finger} ${styles.fingerD}`} />
-            <i className={`${styles.finger} ${styles.fingerE}`} />
-          </span>
+          <span className={styles.hand} />
         </div>
         <div className={styles.torso}>
           <div className={styles.chestPanel}>

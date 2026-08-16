@@ -368,69 +368,19 @@
 .hand {
   position: absolute;
   left: 50%;
-  bottom: -38px;
-  width: 50px;
-  height: 56px;
+  bottom: -14px;
+  width: 42px;
+  height: 42px;
   transform: translateX(-50%);
-}
-
-.palm {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 34px;
-  height: 27px;
-  transform: translateX(-50%);
-  border-radius: 40% 40% 50% 50%;
+  border-radius: 50%;
   border: 1px solid rgb(var(--c-white) / 0.5);
   background:
-    radial-gradient(circle at 35% 25%, rgb(var(--c-white) / 0.65), transparent 42%),
+    radial-gradient(circle at 35% 28%, rgb(var(--c-white) / 0.65), transparent 42%),
     linear-gradient(145deg, rgb(var(--c-bright)), rgb(var(--c-dim)) 75%);
   box-shadow:
-    inset 4px -3px 8px rgb(var(--c-dark) / 0.55),
-    inset -3px 3px 6px rgb(var(--c-glow) / 0.35),
-    0 0 12px rgb(var(--c-bright) / 0.3);
-}
-
-.finger {
-  position: absolute;
-  bottom: 4px;
-  width: 7px;
-  height: 24px;
-  border-radius: 4px 4px 3px 3px;
-  border: 1px solid rgb(var(--c-white) / 0.45);
-  background: linear-gradient(180deg, rgb(var(--c-bright)), rgb(var(--c-dim)) 80%);
-  box-shadow: inset 1px -1px 3px rgb(var(--c-dark) / 0.5);
-  transform-origin: bottom center;
-}
-
-.fingerA {
-  left: 1px;
-  height: 18px;
-  transform: rotate(-26deg);
-}
-
-.fingerB {
-  left: 12px;
-  height: 23px;
-  transform: rotate(-13deg);
-}
-
-.fingerC {
-  left: 22px;
-  height: 26px;
-}
-
-.fingerD {
-  left: 33px;
-  height: 23px;
-  transform: rotate(13deg);
-}
-
-.fingerE {
-  left: 43px;
-  height: 18px;
-  transform: rotate(26deg);
+    inset 6px -5px 10px rgb(var(--c-dark) / 0.55),
+    inset -4px 4px 8px rgb(var(--c-glow) / 0.35),
+    0 0 14px rgb(var(--c-bright) / 0.3);
 }
 
 .armLeft {
