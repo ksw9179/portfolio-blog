@@ -377,7 +377,7 @@
 .palm {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  top: 0;
   width: 34px;
   height: 27px;
   transform: translateX(-50%);
@@ -394,7 +394,7 @@
 
 .finger {
   position: absolute;
-  bottom: 20px;
+  bottom: 4px;
   width: 7px;
   height: 24px;
   border-radius: 4px 4px 3px 3px;
