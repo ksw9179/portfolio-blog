@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import AuthField from "@/components/AuthField";
+import GithubLoginButton from "@/components/GithubLoginButton";
 
 export default function SignupPage() {
   const [email, setEmail] = useState("");
@@ -90,6 +91,14 @@ export default function SignupPage() {
           {loading ? "Signing up..." : "Sign Up"}
         </button>
       </form>
+
+      <div className="flex items-center gap-3">
+        <span className="h-px flex-1 bg-surface-2" />
+        <span className="font-mono text-xs text-ink-dim uppercase">Or</span>
+        <span className="h-px flex-1 bg-surface-2" />
+      </div>
+
+      <GithubLoginButton />
 
       <p className="text-center text-sm text-ink-dim">
         Already have an account?{" "}

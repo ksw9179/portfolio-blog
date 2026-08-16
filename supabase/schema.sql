@@ -123,16 +123,23 @@ create policy "본인 좋아요만 삭제"
 
 -- ============================================
 -- 가입 시 profiles 자동 생성 (Phase 3)
--- 회원가입 폼에서 넘긴 username(user_metadata)을 쓰고,
--- 없으면 이메일 앞부분을 기본값으로 사용
+-- 이메일 가입은 폼에서 넘긴 username(user_metadata)을 쓰고,
+-- GitHub OAuth 가입은 user_name/avatar_url/full_name을 씀,
+-- 이것도 없으면 이메일 앞부분을 기본값으로 사용
 -- ============================================
-create function public.handle_new_user()
+create or replace function public.handle_new_user()
 returns trigger as $$
 begin
-  insert into public.profiles (id, username)
+  insert into public.profiles (id, username, display_name, avatar_url)
   values (
     new.id,
-    coalesce(new.raw_user_meta_data->>'username', split_part(new.email, '@', 1))
+    coalesce(
+      new.raw_user_meta_data->>'username',
+      new.raw_user_meta_data->>'user_name',
+      split_part(new.email, '@', 1)
+    ),
+    new.raw_user_meta_data->>'full_name',
+    new.raw_user_meta_data->>'avatar_url'
   );
   return new;
 end;
