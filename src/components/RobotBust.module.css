@@ -395,7 +395,7 @@
 .finger {
   position: absolute;
   bottom: 18px;
-  width: 7px;
+  width: 6px;
   height: 22px;
   border-radius: 4px 4px 3px 3px;
   border: 1px solid rgb(var(--c-white) / 0.45);
@@ -405,25 +405,32 @@
 }
 
 .fingerA {
-  left: 2px;
-  height: 18px;
-  transform: rotate(-20deg);
+  left: 0;
+  height: 16px;
+  transform: rotate(-24deg);
 }
 
 .fingerB {
-  left: 12px;
-  transform: rotate(-6deg);
+  left: 9px;
+  height: 20px;
+  transform: rotate(-12deg);
 }
 
 .fingerC {
-  left: 22px;
-  transform: rotate(6deg);
+  left: 18px;
+  height: 22px;
 }
 
 .fingerD {
-  left: 32px;
-  height: 18px;
-  transform: rotate(20deg);
+  left: 27px;
+  height: 20px;
+  transform: rotate(12deg);
+}
+
+.fingerE {
+  left: 36px;
+  height: 16px;
+  transform: rotate(24deg);
 }
 
 .armLeft {
