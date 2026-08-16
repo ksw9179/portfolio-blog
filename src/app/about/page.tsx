@@ -5,7 +5,7 @@ const INTERESTS = ["AI / ML", "Bioinformatics", "Biotechnology", "Data Analysis"
 const ABOUT_POINTS = [
   "경희대학교에서 AI와 생명공학을 함께 공부",
   "AI와 생명과학이 만나는 지점(바이오인포매틱스)에 관심",
-  "이론보다 직접 구현하며 이해하는 방식 선호",
+  "Top-Down method와 Bottom-up method를 융합하는 방식 선호",
   "NumPy만으로 역전파 알고리즘 직접 구현",
   "자동미분(autograd) 엔진을 처음부터 설계·구현",
 ];
