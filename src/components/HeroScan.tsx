@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { animate, createScope, createTimeline, stagger } from "animejs";
+import { createScope, createTimeline, stagger } from "animejs";
 import NeuralBackground from "@/components/NeuralBackground";
+import RobotBust from "@/components/RobotBust";
 
 const HUD_LINES = ["[ SCANNING... ]", "IDENTITY CONFIRMED"];
 
 // 스캔 시퀀스가 시작되기까지, 로봇이 등장하는 데 걸리는 시간(ms)
 const SCAN_START = 550;
+
+// 로봇 흉상의 왼팔(화면 기준) 인사 동작 — 기본 각도(8deg)에서 들어올려 흔들었다가 복귀
+const WAVE_ROTATE = ["8deg", "115deg", "90deg", "125deg", "90deg", "8deg"];
+const WAVE_DURATION = 1700;
 
 export default function HeroScan() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -22,7 +27,7 @@ export default function HeroScan() {
       if (root) {
         root
           .querySelectorAll(
-            ".reveal, .bracket, .scanline, .hud-flicker, .robot"
+            ".reveal, .bracket, .scanline, .hud-flicker, .robot, .robot-bust"
           )
           .forEach((el) => {
             (el as HTMLElement).style.opacity = "1";
@@ -91,6 +96,23 @@ export default function HeroScan() {
           ".scanline",
           { opacity: [1, 0], duration: 500 },
           SCAN_START + 2800
+        )
+        // 3. 로봇 흉상은 처음부터 함께 등장 (작은 와이어프레임 로봇 아이콘과 동시)
+        .add(
+          ".robot-bust",
+          {
+            opacity: [0, 1],
+            scale: [0.85, 1],
+            translateX: [24, 0],
+            duration: 700,
+          },
+          0
+        )
+        // 4. 등장 직후, 손을 흔들며 인사
+        .add(
+          ".wave-arm",
+          { rotate: WAVE_ROTATE, duration: WAVE_DURATION, ease: "inOutSine" },
+          850
         );
     });
 
@@ -100,6 +122,7 @@ export default function HeroScan() {
   return (
     <div ref={rootRef} className="relative w-full overflow-hidden">
       <NeuralBackground />
+      <RobotBust />
 
       <div
         className="scanline pointer-events-none absolute inset-x-0 top-0 h-px"
