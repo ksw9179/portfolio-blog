@@ -129,15 +129,26 @@ create policy "본인 좋아요만 삭제"
 -- ============================================
 create or replace function public.handle_new_user()
 returns trigger as $$
+declare
+  base_username text;
+  final_username text;
 begin
+  base_username := coalesce(
+    new.raw_user_meta_data->>'username',
+    new.raw_user_meta_data->>'user_name',
+    split_part(new.email, '@', 1)
+  );
+  final_username := base_username;
+
+  -- 이미 쓰이는 아이디면(예: 이메일 가입과 같은 GitHub 아이디로 재가입) 뒤에 구분자를 붙여 충돌 회피
+  if exists (select 1 from public.profiles where username = final_username) then
+    final_username := base_username || '-' || substr(new.id::text, 1, 6);
+  end if;
+
   insert into public.profiles (id, username, display_name, avatar_url)
   values (
     new.id,
-    coalesce(
-      new.raw_user_meta_data->>'username',
-      new.raw_user_meta_data->>'user_name',
-      split_part(new.email, '@', 1)
-    ),
+    final_username,
     new.raw_user_meta_data->>'full_name',
     new.raw_user_meta_data->>'avatar_url'
   );
