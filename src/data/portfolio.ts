@@ -54,7 +54,7 @@ export const activities: Activity[] = [
     description: "Completed",
   },
   {
-    title: "쿠러그 소속",
+    title: "Khlug(쿠러그)",
     org: "경희대학교 중앙 IT 동아리",
     period: "2026년부터",
     description: "In Progress",
