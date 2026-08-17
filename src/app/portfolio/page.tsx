@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import {
@@ -6,6 +7,11 @@ import {
   education,
   projects,
 } from "@/data/portfolio";
+
+export const metadata: Metadata = {
+  title: "Portfolio",
+  description: "Education, Projects, Certifications, Activities.",
+};
 
 export default function PortfolioPage() {
   return (

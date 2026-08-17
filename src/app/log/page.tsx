@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { fetchPosts } from "@/lib/posts";
 import LogGrid from "@/components/LogGrid";
+
+export const metadata: Metadata = {
+  title: "Coding Log",
+  description: "AI, 생명공학 관련 코딩 기록.",
+};
 
 export default async function LogPage() {
   const posts = await fetchPosts(0);

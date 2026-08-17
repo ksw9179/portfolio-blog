@@ -35,6 +35,20 @@ export async function fetchPostById(id: string): Promise<Post | null> {
   return data;
 }
 
+export async function fetchAllPostIds(): Promise<
+  { id: string; created_at: string }[]
+> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("posts")
+    .select("id, created_at")
+    .eq("published", true)
+    .order("created_at", { ascending: false });
+
+  if (error) return [];
+  return data ?? [];
+}
+
 export type Author = { username: string; avatar_url: string | null };
 
 export async function fetchAuthor(authorId: string): Promise<Author | null> {

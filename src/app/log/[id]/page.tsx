@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -13,6 +14,46 @@ import CommentSection from "@/components/CommentSection";
 import Avatar from "@/components/Avatar";
 import ReportButton from "@/components/ReportButton";
 import DeletePostButton from "@/components/DeletePostButton";
+
+function excerpt(body: string): string {
+  const plain = body
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/[#*_`>[\]]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  return plain.length > 150 ? `${plain.slice(0, 150)}…` : plain;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const post = await fetchPostById(id);
+  if (!post) return {};
+
+  const title = post.title ?? "Untitled";
+  const description = excerpt(post.body);
+  const image = post.images[0];
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      publishedTime: post.created_at,
+      images: image ? [{ url: image }] : undefined,
+    },
+    twitter: {
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+  };
+}
 
 export default async function LogDetailPage({
   params,

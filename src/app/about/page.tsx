@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "경희대학교에서 AI와 생명공학을 함께 공부하는 김선우(Seonwoo Kim)를 소개합니다.",
+};
 
 const INTERESTS = ["AI / ML", "Bioinformatics", "Biotechnology", "Data Analysis"];
 

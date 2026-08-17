@@ -1,9 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import LogCard from "@/components/LogCard";
 import Avatar from "@/components/Avatar";
 import type { Post } from "@/lib/posts-types";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}): Promise<Metadata> {
+  const { username } = await params;
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("username, display_name, bio, avatar_url")
+    .eq("username", username)
+    .maybeSingle();
+
+  if (!profile) return {};
+
+  const title = profile.display_name || profile.username;
+  const description = profile.bio || `@${profile.username}의 프로필.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: profile.avatar_url ? [{ url: profile.avatar_url }] : undefined,
+    },
+    twitter: {
+      title,
+      description,
+      images: profile.avatar_url ? [profile.avatar_url] : undefined,
+    },
+  };
+}
 
 export default async function UserProfilePage({
   params,

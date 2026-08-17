@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "수집하는 개인정보 항목과 처리 방침을 안내합니다.",
+};
 
 export default function PrivacyPage() {
   return (
