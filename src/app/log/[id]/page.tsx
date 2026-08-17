@@ -121,6 +121,17 @@ export default async function LogDetailPage({
             </>
           )}
           <span>{new Date(post.created_at).toLocaleDateString("ko-KR")}</span>
+          {user && user.id === post.author_id && (
+            <>
+              <span>·</span>
+              <Link
+                href={`/log/${post.id}/edit`}
+                className="rounded-full border border-surface-2 px-2.5 py-1 font-mono text-[11px] text-ink-dim transition-colors hover:border-accent-dim hover:text-accent"
+              >
+                Edit
+              </Link>
+            </>
+          )}
           {user && (user.id === post.author_id || isAdmin) && (
             <>
               <span>·</span>
