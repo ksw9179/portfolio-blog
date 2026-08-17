@@ -126,7 +126,7 @@ export default async function LogDetailPage({
               <span>·</span>
               <Link
                 href={`/log/${post.id}/edit`}
-                className="rounded-full border border-surface-2 px-2.5 py-1 font-mono text-[11px] text-ink-dim transition-colors hover:border-accent-dim hover:text-accent"
+                className="rounded-full border border-ink/40 px-2.5 py-1 font-mono text-[11px] text-ink transition-colors hover:border-ink hover:bg-ink/10"
               >
                 Edit
               </Link>
