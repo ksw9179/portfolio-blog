@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SiteFooter() {
   return (
     <footer className="border-t border-surface-2 px-6 py-8">
@@ -5,14 +7,22 @@ export default function SiteFooter() {
         <p className="font-mono text-xs text-ink-dim">
           © {new Date().getFullYear()} 김선우(Seonwoo Kim). All rights reserved.
         </p>
-        <a
-          href="https://github.com/ksw9179"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-mono text-xs text-ink-dim transition-colors hover:text-accent"
-        >
-          github.com/ksw9179
-        </a>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://github.com/ksw9179"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs text-ink-dim transition-colors hover:text-accent"
+          >
+            github.com/ksw9179
+          </a>
+          <Link
+            href="/privacy"
+            className="font-mono text-xs text-ink-dim transition-colors hover:text-accent"
+          >
+            Privacy
+          </Link>
+        </div>
       </div>
     </footer>
   );
