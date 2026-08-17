@@ -53,6 +53,12 @@ export const activities: Activity[] = [
     period: "2026.07.20 – 2026.07.23",
     description: "Completed",
   },
+  {
+    title: "쿠러그 소속",
+    org: "경희대학교 중앙 IT 동아리",
+    period: "2026년부터",
+    description: "In Progress",
+  },
 ];
 
 export const projects: Project[] = [
