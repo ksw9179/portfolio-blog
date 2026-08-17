@@ -18,7 +18,7 @@ export default function SiteFooter() {
           </a>
           <Link
             href="/privacy"
-            className="font-mono text-xs text-ink-dim transition-colors hover:text-accent"
+            className="rounded-full border border-surface-2 px-3 py-1 font-mono text-xs text-ink-dim transition-colors hover:border-accent-dim hover:text-accent"
           >
             Privacy
           </Link>
