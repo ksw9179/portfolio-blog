@@ -188,7 +188,9 @@ export default function HeroScan() {
         </p>
 
         <p className="reveal mt-2 max-w-md translate-y-[14px] text-lg text-ink-dim opacity-0">
-          AI와 생명공학을 이어 세상에 가치를 만들어 나갑니다.
+          AI와 생명공학을 이어
+          <br />
+          세상에 가치를 만들어 나갑니다.
         </p>
       </div>
     </div>
