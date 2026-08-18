@@ -8,7 +8,7 @@ import RobotBust from "@/components/RobotBust";
 const HUD_LINES = ["[ SCANNING... ]", "IDENTITY CONFIRMED"];
 
 // 스캔 시퀀스가 시작되기까지, 로봇이 등장하는 데 걸리는 시간(ms)
-const SCAN_START = 550;
+const SCAN_START = 1250;
 
 // 로봇 흉상의 왼팔(화면 기준) 인사 동작 — 기본 각도(8deg)에서 들어올려 흔들었다가 복귀
 const WAVE_ROTATE = ["8deg", "115deg", "90deg", "125deg", "90deg", "8deg"];
@@ -43,27 +43,28 @@ export default function HeroScan() {
 
       const tl = createTimeline({ defaults: { ease: "outExpo" } });
 
-      // 1. 로봇 등장 — 아이콘이 페이드인 되면서 동시에 선이 그려짐
+      // 1. 로봇 등장 — 아이콘 틀은 빠르게 나타나고, 그 위에 선이 천천히 그려짐
+      //    (동시에 진행하면 두 효과가 묻혀서 선 그려지는 게 잘 안 보였음)
       tl.add(
         ".robot",
         {
           opacity: [0, 1],
-          scale: [0.8, 1],
+          scale: [0.85, 1],
           translateY: [8, 0],
-          duration: 480,
-          ease: "outBack",
+          duration: 200,
+          ease: "outQuad",
         },
         0
       )
         .add(
           robotStrokes,
-          { draw: ["0 0", "0 1"], duration: 650, delay: stagger(60) },
-          0
+          { draw: ["0 0", "0 1"], duration: 550, delay: stagger(80) },
+          120
         )
         .add(
           ".robot-eye",
           { opacity: [1, 0.3, 1], duration: 260 },
-          320
+          900
         )
         // 2. 스캔 라인 시작 — 3초 동안 천천히 훑고 지나가며 잘 보이게
         .add(
