@@ -5,8 +5,10 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import AuthField from "@/components/AuthField";
 import GithubLoginButton from "@/components/GithubLoginButton";
+import { useMagnetic } from "@/hooks/useMagnetic";
 
 export default function SignupPage() {
+  const magneticRef = useMagnetic<HTMLButtonElement>();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -84,6 +86,7 @@ export default function SignupPage() {
         {error && <p className="font-mono text-xs text-red-400">{error}</p>}
 
         <button
+          ref={magneticRef}
           type="submit"
           disabled={loading}
           className="mt-2 rounded-full bg-accent px-5 py-3 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"

@@ -4,6 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import { useMagnetic } from "@/hooks/useMagnetic";
 
 type ExistingPost = {
   id: string;
@@ -22,6 +23,7 @@ export default function WriteForm({
 }) {
   const isEdit = !!post;
   const router = useRouter();
+  const magneticRef = useMagnetic<HTMLButtonElement>();
   const [title, setTitle] = useState(post?.title ?? "");
   const [body, setBody] = useState(post?.body ?? "");
   const [tagsInput, setTagsInput] = useState(post?.tags.join(", ") ?? "");
@@ -175,6 +177,7 @@ export default function WriteForm({
       {error && <p className="font-mono text-xs text-red-400">{error}</p>}
 
       <button
+        ref={magneticRef}
         type="submit"
         disabled={loading}
         className="mt-2 rounded-full bg-accent px-5 py-3 font-mono text-sm font-bold text-bg transition-opacity hover:opacity-90 disabled:opacity-50"
