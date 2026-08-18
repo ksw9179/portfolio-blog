@@ -8,7 +8,7 @@ import RobotBust from "@/components/RobotBust";
 const HUD_LINES = ["[ SCANNING... ]", "IDENTITY CONFIRMED"];
 
 // 스캔 시퀀스가 시작되기까지, 로봇이 등장하는 데 걸리는 시간(ms)
-const SCAN_START = 1250;
+const SCAN_START = 1750;
 
 // 로봇 흉상의 왼팔(화면 기준) 인사 동작 — 기본 각도(8deg)에서 들어올려 흔들었다가 복귀
 const WAVE_ROTATE = ["8deg", "115deg", "90deg", "125deg", "90deg", "8deg"];
@@ -58,13 +58,13 @@ export default function HeroScan() {
       )
         .add(
           robotStrokes,
-          { draw: ["0 0", "0 1"], duration: 550, delay: stagger(80) },
-          120
+          { draw: ["0 0", "0 1"], duration: 280, delay: stagger(220) },
+          150
         )
         .add(
           ".robot-eye",
           { opacity: [1, 0.3, 1], duration: 260 },
-          900
+          1350
         )
         // 2. 스캔 라인 시작 — 3초 동안 천천히 훑고 지나가며 잘 보이게
         .add(
