@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { createScope, createTimeline, stagger } from "animejs";
+import { createScope, createTimeline, stagger, svg } from "animejs";
 import NeuralBackground from "@/components/NeuralBackground";
 import RobotBust from "@/components/RobotBust";
 
@@ -38,9 +38,12 @@ export default function HeroScan() {
     }
 
     const scope = createScope({ root: rootRef }).add(() => {
+      // 로봇 아이콘의 선(안테나/머리 윤곽/귀/입)을 그려지는 상태로 미리 감춤
+      const robotStrokes = svg.createDrawable(".robot-stroke");
+
       const tl = createTimeline({ defaults: { ease: "outExpo" } });
 
-      // 1. 로봇 등장
+      // 1. 로봇 등장 — 아이콘이 페이드인 되면서 동시에 선이 그려짐
       tl.add(
         ".robot",
         {
@@ -52,6 +55,11 @@ export default function HeroScan() {
         },
         0
       )
+        .add(
+          robotStrokes,
+          { draw: ["0 0", "0 1"], duration: 650, delay: stagger(60) },
+          0
+        )
         .add(
           ".robot-eye",
           { opacity: [1, 0.3, 1], duration: 260 },
@@ -141,14 +149,14 @@ export default function HeroScan() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <line x1="36" y1="6" x2="36" y2="16" stroke="currentColor" strokeWidth="2" />
+          <line className="robot-stroke" x1="36" y1="6" x2="36" y2="16" stroke="currentColor" strokeWidth="2" />
           <circle cx="36" cy="4" r="3" fill="currentColor" />
-          <rect x="14" y="16" width="44" height="36" rx="10" stroke="currentColor" strokeWidth="2" />
-          <line x1="14" y1="28" x2="8" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          <line x1="58" y1="28" x2="64" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          <rect className="robot-stroke" x="14" y="16" width="44" height="36" rx="10" stroke="currentColor" strokeWidth="2" />
+          <line className="robot-stroke" x1="14" y1="28" x2="8" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          <line className="robot-stroke" x1="58" y1="28" x2="64" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
           <circle className="robot-eye" cx="27" cy="34" r="4" fill="currentColor" />
           <circle className="robot-eye" cx="45" cy="34" r="4" fill="currentColor" />
-          <line x1="24" y1="45" x2="48" y2="45" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <line className="robot-stroke" x1="24" y1="45" x2="48" y2="45" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
 
         <p className="hud-flicker hud-flicker-1 font-mono text-xs tracking-[0.35em] text-accent uppercase opacity-0">
