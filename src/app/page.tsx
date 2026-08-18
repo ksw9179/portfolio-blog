@@ -1,6 +1,7 @@
 import HeroScan from "@/components/HeroScan";
 import GithubContributions from "@/components/GithubContributions";
 import GithubRepos from "@/components/GithubRepos";
+import GithubActivity from "@/components/GithubActivity";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
 
         <GithubContributions />
         <GithubRepos />
+        <GithubActivity />
       </section>
     </div>
   );
