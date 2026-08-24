@@ -85,12 +85,29 @@ export default async function ProjectDetailPage({
 }
 
 function Detail({ label, text }: { label: string; text: string }) {
+  // 개조식(줄바꿈으로 구분된 항목) 콘텐츠는 목록으로, 기존 서술형 문단은 그대로 렌더링
+  const lines = text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
   return (
     <div className="flex flex-col gap-2">
       <p className="font-mono text-xs tracking-[0.3em] text-accent uppercase">
         {label}
       </p>
-      <p className="leading-relaxed text-ink-dim">{text}</p>
+      {lines.length > 1 ? (
+        <ul className="flex flex-col gap-1.5 leading-relaxed text-ink-dim">
+          {lines.map((line, i) => (
+            <li key={i} className="flex gap-2">
+              <span className="text-accent">·</span>
+              <span>{line}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="leading-relaxed text-ink-dim">{text}</p>
+      )}
     </div>
   );
 }
