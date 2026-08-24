@@ -102,10 +102,14 @@ export const projects: Project[] = [
     approach:
       "CNN(PyTorch)과 EfficientNetB0(Keras) 두 모델을 각각 학습해 비교했다. Laplacian blur score로 선명도 상위 이미지만 샘플링해 클래스 균형을 맞췄다.",
     result:
-      "의외로 EfficientNet이 CNN보다 외부(실제) 사진 정확도가 낮게 나오는 현상을 발견. 원인을 추적한 결과, 원본 이미지 해상도가 매우 작아(평균 51px) EfficientNet의 큰 업스케일(224px, 약 4.4배)이 보간 흐림 패턴을 학습에 반영시킨 것이 유력한 원인으로 확인됨. 검증을 위해 동일 파이프라인에서 사전학습 없는 경량 CNN(96px 입력)을 새로 구현해 비교했고, 이 과정에서 EfficientNet의 preprocess_input()이 사실 아무 연산도 하지 않는 함수임을 발견해 CNN에는 [0,1] 정규화를 직접 적용했다. 이후 단일 이미지 예측을 디버깅하면서, 전처리 오류가 '명백한' 사진에서는 sigmoid 포화 때문에 티가 안 나고 애매한(경계선) 사진에서 가장 크게 드러난다는 것도 확인함.",
+      "EfficientNet, CNN 대비 외부(실제) 사진 정확도 저하 현상 발견\n" +
+      "원인: 원본 저해상도(평균 51px) 대비 EfficientNet 224px 업스케일(약 4.4배)의 보간 흐림 패턴 학습 반영으로 추정\n" +
+      "검증: 사전학습 없는 경량 CNN(96px 입력) 신규 구현 및 비교\n" +
+      "부가 발견: EfficientNet의 preprocess_input()은 실질적 무연산(no-op) 확인 → CNN에는 [0,1] 정규화 별도 적용\n" +
+      "디버깅: 전처리 오류는 명백한 이미지에서 sigmoid 포화로 가려지고, 애매한(경계선) 이미지에서 가장 크게 드러남 확인",
     stack: ["Python", "PyTorch", "Keras/TensorFlow", "Google Colab"],
     githubUrl:
       "https://github.com/ksw9179/AI_and_Data-/blob/main/%EA%B0%9C%EC%84%A0%EC%95%88_Blueberry_CNN.ipynb",
-    status: "In Progress",
+    status: "Completed",
   },
 ];
