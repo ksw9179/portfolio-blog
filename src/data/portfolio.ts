@@ -68,11 +68,18 @@ export const projects: Project[] = [
     summary:
       "딥러닝 프레임워크 없이 NumPy만으로 선형회귀부터 신경망까지 역전파를 직접 구현한 프로젝트.",
     problem:
-      "PyTorch 같은 프레임워크를 쓰면 역전파가 자동으로 계산돼 블랙박스가 된다. 경사하강법과 역전파의 수학적 원리를 직접 손으로 이해하고 싶었다.",
+      "PyTorch 등 프레임워크 사용 시 역전파가 자동 계산되어 블랙박스화\n" +
+      "경사하강법·역전파의 수학적 원리를 직접 손으로 이해하고 싶었음",
     approach:
-      "선형회귀 → 로지스틱회귀 → 2층 MLP 순서로, forward/backward 수식을 직접 유도해 NumPy 코드로 구현했다. 핵심 수식은 뼈대+TODO 방식으로 직접 채워나갔다.",
+      "선형회귀 → 로지스틱회귀 → 2층 MLP 순서로 단계적 구현\n" +
+      "forward/backward 수식을 직접 유도해 NumPy 코드로 구현\n" +
+      "핵심 수식은 뼈대+TODO 방식으로 직접 채움",
     result:
-      "자체 테스트 24/24 통과. XOR 100%, 유방암 진단(breast cancer) 95.6%, sklearn digits 97.5%, 실제 MNIST 95.75% 달성.",
+      "자체 테스트 24/24 통과\n" +
+      "XOR 100%\n" +
+      "유방암 진단(breast cancer) 95.6%\n" +
+      "sklearn digits 97.5%\n" +
+      "실제 MNIST 95.75% 달성",
     stack: ["Python", "NumPy"],
     githubUrl: "https://github.com/ksw9179/numpy-backprop",
     status: "Completed",
@@ -83,11 +90,15 @@ export const projects: Project[] = [
     summary:
       "스칼라용/텐서용 두 가지 자동미분(autograd) 엔진을 직접 만들어 MNIST를 분류한 프로젝트.",
     problem:
-      "인공지능이 돌아가는 수학적 원리(미분과 연쇄법칙)를 프로그래밍과 직접 연결해 이해하고 싶었다. PyTorch의 autograd 같은 자동미분이 내부적으로 계산 그래프를 만들고 미분을 전파하는 방식을 직접 구현해보기로 했다.",
+      "인공지능의 수학적 원리(미분·연쇄법칙)를 프로그래밍과 직접 연결해 이해하고 싶었음\n" +
+      "PyTorch autograd처럼 계산 그래프 생성 및 미분 전파 방식을 직접 구현해보기로 함",
     approach:
-      "스칼라 단위로 동작하는 Value 엔진과 NumPy 배열 기반의 Tensor 엔진, 두 가지를 각각 구현했다.",
+      "스칼라 단위로 동작하는 Value 엔진 구현\n" +
+      "NumPy 배열 기반 Tensor 엔진 구현",
     result:
-      "27개 테스트 전부 통과. moons 데이터셋 99%, MNIST 95.75% (numpy-backprop과 동일 수치로 검증).",
+      "27개 테스트 전부 통과\n" +
+      "moons 데이터셋 99%\n" +
+      "MNIST 95.75% (numpy-backprop과 동일 수치로 검증)",
     stack: ["Python", "NumPy"],
     githubUrl: "https://github.com/ksw9179/autograd-engine",
     status: "Completed",
@@ -98,9 +109,10 @@ export const projects: Project[] = [
     summary:
       "블루베리 사진으로 수확 시기(익음 여부)를 자동 판별하는 이진 분류 프로젝트. CNN과 EfficientNet을 비교하며 진행 중.",
     problem:
-      "블루베리 사진만 보고 수확해도 되는 상태(ready)인지 아닌지를 자동으로 판별하고 싶었다.",
+      "블루베리 사진만으로 수확 가능 상태(ready) 여부를 자동 판별하고자 함",
     approach:
-      "CNN(PyTorch)과 EfficientNetB0(Keras) 두 모델을 각각 학습해 비교했다. Laplacian blur score로 선명도 상위 이미지만 샘플링해 클래스 균형을 맞췄다.",
+      "CNN(PyTorch), EfficientNetB0(Keras) 두 모델 각각 학습 후 비교\n" +
+      "Laplacian blur score로 선명도 상위 이미지만 샘플링해 클래스 균형 확보",
     result:
       "EfficientNet, CNN 대비 외부(실제) 사진 정확도 저하 현상 발견\n" +
       "원인: 원본 저해상도(평균 51px) 대비 EfficientNet 224px 업스케일(약 4.4배)의 보간 흐림 패턴 학습 반영으로 추정\n" +
