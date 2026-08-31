@@ -31,7 +31,9 @@ export default function LogCard({
           {post.title && (
             <p className="font-bold text-ink line-clamp-2">{post.title}</p>
           )}
-          <p className="line-clamp-5 text-sm text-ink-dim">{post.body}</p>
+          <p className="line-clamp-5 text-sm whitespace-pre-line text-ink-dim">
+            {post.body}
+          </p>
           <p className="font-mono text-[10px] text-ink-dim">
             {new Date(post.created_at).toLocaleDateString("ko-KR")}
           </p>
